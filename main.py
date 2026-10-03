@@ -19,19 +19,46 @@ async def receber_mensagem(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = update.message.date.strftime('%d/%m/%Y')
 
     if '-' in mensagem:
-
         # CONVERTE O VALOR DA MENSAGEM PARA INT OU FLOAT
         if '.' in mensagem[1]:
             mensagem[1] = float(mensagem[1])
         else:
             mensagem[1] = int(mensagem[1])
 
-        await update.message.reply_text(f'R${mensagem[1]:.2f} GASTOS!')
-        aba.append_row([data, 'GASTO', int(mensagem[1]), mensagem[2]])
+        await update.message.reply_text(f'*GASTO* DE *R${mensagem[1]:.2f}* ADICIONADO!', parse_mode='Markdown')
+        aba.append_row([data, 'GASTO', mensagem[1], mensagem[2]])
+
+    if '+' in mensagem:
+        if '.' in mensagem[1]:
+            mensagem[1] = float(mensagem[1])
+        else:
+            mensagem[1] = int(mensagem[1])
+    
+        await update.message.reply_text(f'*GANHO* DE *R${mensagem[1]:.2f}* ADICIONADO!', parse_mode='Markdown')
+        aba.append_row([data, 'GANHO', mensagem[1], mensagem[2]])
+
+    if 'CDI' in mensagem:
+            if '.' in mensagem[1]:
+                mensagem[1] = float(mensagem[1])
+            else:
+                mensagem[1] = int(mensagem[1])
+        
+            await update.message.reply_text(f'*INVESTIMENTO* DE *R${mensagem[1]:.2f}* ADICIONADO!', parse_mode='Markdown')
+            aba.append_row([data, 'CDI', mensagem[1]])
 
     if 'gastos' in mensagem:
-        gastos = aba.acell('I2').value
-        await update.message.reply_text(f'SEU TOTAL DE GASTOS NESSE MÊS É: R${gastos}!')
+
+        if 'alimentação' in mensagem:
+            ...
+        if 'lazer' in mensagem:
+            ...
+        if 'despesa' in mensagem:
+            ...
+        if 'compra' in mensagem:
+            ...
+        else:
+            gastos = aba.acell('K6').value
+            await update.message.reply_text(f'SEU TOTAL DE GASTOS NESSE MÊS É: {gastos}!')
 
 conexao_telegram.add_handler(MessageHandler(filters.TEXT, receber_mensagem))
 
