@@ -16,7 +16,7 @@ aba = dados.sheet1
 async def receber_mensagem(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     mensagem = update.message.text.split()
-    data = update.message.date.strftime('%d/%m/%Y')
+    data = update.message.date
 
     if '-' in mensagem:
 
