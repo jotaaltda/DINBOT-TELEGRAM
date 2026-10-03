@@ -48,13 +48,14 @@ async def receber_mensagem(update: Update, context: ContextTypes.DEFAULT_TYPE):
             mensagem[1] = int(mensagem[1])
     
         await update.message.reply_text(f' 📈 *GANHO* DE *R${mensagem[1]:.2f}* ADICIONADO!', parse_mode='Markdown')
-        aba.append_row([data, 'GANHO', mensagem[1], mensagem[2]])
 
         if 'crédito' in mensagem:
             if 'picpay' in mensagem:
-                ...
-            if 'mercado pago' in mensagem:
-                ...
+                aba.append_row([data, 'GANHO', mensagem[1], mensagem[2], 'CRÉDITO PICPAY'])
+            if 'mercado' in mensagem:
+                aba.append_row([data, 'GANHO', mensagem[1], mensagem[2], 'CRÉDITO MERCADO PAGO'])
+        else:
+            aba.append_row([data, 'GANHO', mensagem[1], mensagem[2]])
 
     if 'CDI' in mensagem:
             if '.' in mensagem[1]:
