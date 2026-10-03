@@ -110,6 +110,28 @@ TOTAL: *{aba.acell('K7').value}*
 TOTAL: *{aba.acell('N6').value}*
 ''', parse_mode='Markdown')
 
+    if 'Saldo' in mensagem:
+
+        if 'outubro' in mensagem:
+            aba = dados.worksheet('OUTUBRO')
+        if 'novembro' in mensagem:
+            aba = dados.worksheet('NOVEMBRO')
+        if 'dezembro' in mensagem:
+            aba = dados.worksheet('DEZEMBRO')
+
+        await update.message.reply_text(f'''
+💵 SEUS SALDO DO MÊS DE *{aba.title}*:
+
+DÉBITO: *{aba.acell('H8').value}*
+
+💳 LIMITES:
+🟩 PICPAY: *{aba.acell('H2').value} / {aba.acell('H3').value}*
+🟦 MERCADO PAGO: *{aba.acell('H4').value} / {aba.acell('H5').value}*
+
+📊 INVESTIMENTOS:
+CDI: *{aba.acell('H11').value}*
+''', parse_mode='Markdown')
+
 conexao_telegram.add_handler(MessageHandler(filters.TEXT, receber_mensagem))
 
 conexao_telegram.run_polling()
